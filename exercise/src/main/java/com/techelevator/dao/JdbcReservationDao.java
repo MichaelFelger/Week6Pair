@@ -37,18 +37,6 @@ public class JdbcReservationDao implements ReservationDao {
         return r;
     }
 
-/*    @Override
-    public Reservation getReservation(int reservationId) {
-        Reservation reservation = null;
-        String sql = "SELECT reservation_id, site_id, name, from_date, to_date, create_date FROM reservation " +
-                "WHERE reservation_id = ? ";
-        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, reservationId);
-        while (results.next()) {
-            reservation = mapRowToReservation(results);
-        }
-        return reservation;
-    }*/
-
     public List<Reservation> getReservationNext30Days(int parkId) {
         List<Reservation> reservationList = new ArrayList<>();
         String getReservation30days = "SELECT reservation_id, reservation.site_id, reservation.name, from_date, to_date, create_date \n" +
@@ -64,5 +52,17 @@ public class JdbcReservationDao implements ReservationDao {
             reservationList.add(mapRowToReservation(sqlRowSet));
         }
         return reservationList;
+    }
+
+    public List<Reservation> getAvailableSitesByPark(int parkId) {
+        List<Reservation> availableSites = new ArrayList<>();
+        String getAvailableSitesByPark = "";
+
+        SqlRowSet sqlRowSet = jdbcTemplate.queryForRowSet(getAvailableSitesByPark, parkId);
+
+        while (sqlRowSet.next()) {
+            availableSites.add(mapRowToReservation(sqlRowSet));
+        }
+        return availableSites;
     }
 }

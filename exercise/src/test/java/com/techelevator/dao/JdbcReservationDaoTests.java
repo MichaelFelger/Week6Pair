@@ -32,15 +32,12 @@ public class JdbcReservationDaoTests extends BaseDaoTests {
 
     @Test
     public void return_reservations_next_30_days_for_given_park_id() {
-/*        List<Reservation> expected = new ArrayList<>();
-         dao.createReservation(1, "Bob Robertson", LocalDate.now().plusDays(), );
-        expected.add(1, 1, );
-        expected.add(1, 2);*/
 
         List<Reservation> actual = dao.getReservationNext30Days(1);
 
         Assert.assertEquals(2, actual.size());
 
     }
+
 
 }
